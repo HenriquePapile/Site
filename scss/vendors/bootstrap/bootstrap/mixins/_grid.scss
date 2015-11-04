@@ -1,0 +1,341 @@
+// Grid system
+//
+// Generate semantic grid columns with these mixins.
+
+// Centered container element
+@mixin container-fixed($gutter: $grid-gutter-width) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+  @include clearfix;
+}
+
+// Creates a wrapper for a series of columns
+@mixin make-row($gutter: $grid-gutter-width) {
+  margin-left:  ceil(($gutter / -2));
+  margin-right: floor(($gutter / -2));
+  @include clearfix;
+}
+
+// Generate the extra small columns
+@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  float: left;
+  width: percentage(($columns / $grid-columns));
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+@mixin make-xs-column-offset($columns) {
+  margin-left: percentage(($columns / $grid-columns));
+}
+@mixin make-xs-column-push($columns) {
+  left: percentage(($columns / $grid-columns));
+}
+@mixin make-xs-column-pull($columns) {
+  right: percentage(($columns / $grid-columns));
+}
+
+// Generate the small columns
+@mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-sm-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-offset($columns) {
+  @media (min-width: $screen-sm-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-push($columns) {
+  @media (min-width: $screen-sm-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-pull($columns) {
+  @media (min-width: $screen-sm-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the medium columns
+@mixin make-md-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-md-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-offset($columns) {
+  @media (min-width: $screen-md-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-push($columns) {
+  @media (min-width: $screen-md-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-pull($columns) {
+  @media (min-width: $screen-md-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the large columns
+@mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-lg-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-offset($columns) {
+  @media (min-width: $screen-lg-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-push($columns) {
+  @media (min-width: $screen-lg-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-pull($columns) {
+  @media (min-width: $screen-lg-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+
+
+/*
+* Origamid-Grid V1.0
+*	
+* Based off of Skeleton-SASS V1.1
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+
+/* #Variable Definitions
+================================================== */
+$base-width: 960px;
+$tablet-width: 768px;
+$mobile-width: 300px;
+
+$num-cols: 16;
+$margin: 10px;
+
+/* Grid
+================================================== */
+@function skeleton-third-width($num: 1, $width: $base-width) {
+	@return $num * ($width / 3) - (2 * $margin);
+}
+
+@function skeleton-col-width($num: 1, $width: $base-width) {
+	@return ($num * ($width / $num-cols)) - (2 * $margin);
+}
+
+@mixin container {
+	position: relative;
+	margin: 0 auto;
+	padding: 0;
+	width: $base-width;
+
+	&:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	}
+
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		width: $tablet-width;
+	}
+
+	@media only screen and (max-width: 767px) {
+		width: $mobile-width;
+	}
+}
+
+@mixin col {
+	float: left;
+	display: inline;
+	margin-left: $margin;
+	margin-right: $margin;
+	
+	@media only screen and (max-width: 767px) {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+}
+
+@mixin row {
+	@include clearfix;
+	margin-bottom: 2 * $margin;
+}
+
+@mixin alpha {
+	margin-left: 0;
+}
+@mixin omega {
+	margin-right: 0;
+}
+
+@mixin grid-pure($num: 1) {
+	width: skeleton-col-width($num, $base-width);
+
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		width: skeleton-col-width($num, $tablet-width);
+	}
+
+	@media only screen and (max-width: 767px) {
+		width: $mobile-width;
+	}
+}
+
+@mixin grid-pure-plus($num: 1) {
+	width: skeleton-col-width($num, $base-width) + 20px;
+
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		width: skeleton-col-width($num, $tablet-width) + 20px;
+	}
+
+	@media only screen and (max-width: 767px) {
+		width: $mobile-width;
+	}
+}
+
+// When is a grid inside a grid, use inside on the first element as left
+// and on the second element as right
+@mixin grid($num: 1, $inside: none) {
+	@if $inside == left {
+		float: left;
+		display: inline;
+		margin-right: 10px;
+		margin-left: 0px;
+		@media only screen and (max-width: 767px) {
+			margin-right: 0px;
+			margin-left: 0px;
+		}
+	}
+	@if $inside == right {
+		float: left;
+		display: inline;
+		margin-right: 0px;
+		margin-left: 10px;
+		@media only screen and (max-width: 767px) {
+			margin-right: 0px;
+			margin-left: 0px;
+		}
+	}
+	@else if $inside == none {
+		@include col;
+	}
+	width: skeleton-col-width($num, $base-width);
+
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		width: skeleton-col-width($num, $tablet-width);
+	}
+
+	@media only screen and (max-width: 767px) {
+		width: $mobile-width;
+	}
+}
+
+@mixin grid-third($num: 1) {
+	@include col;
+	width: skeleton-third-width($num, $base-width);
+
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		width: skeleton-third-width($num, $tablet-width);
+	}
+	
+	@media only screen and (max-width: 767px) {
+		width: $mobile-width;
+	}
+}
+
+@mixin offset($num: 1) {
+	$offset: 2 * $margin;
+	padding-left: skeleton-col-width($num, $base-width) + $offset;
+	
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		padding-left: skeleton-col-width($num, $tablet-width) + $offset;
+	}
+	
+	@media only screen and (max-width: 767px) {
+		padding-left: 0;
+	}
+}
+
+
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested cols,
+or wrap each row of cols in a @include row */
+@mixin clearfix {
+	zoom: 1;
+	&:after {
+		clear: both;
+	}
+	&:before, &:after {
+		content: '\0020';
+		display: block;
+		overflow: hidden;
+		visibility: hidden;
+		width: 0;
+		height: 0;
+	}
+}
+
+/* You can also use a @include clear to clear cols */
+@mixin clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* #GRID POINTER
+s = Screen = 960px
+t = Tablet = 768px
+m = Mobile = 300px
+================================================== */
+@mixin d($device) {
+	@if $device == s {
+		@media only screen and (min-width: 960px) { @content; }
+	}
+	@if $device == s-t {
+		@media only screen and (min-width: 768px) { @content; }
+	}
+	@if $device == t {
+		@media only screen and (min-width: 768px) and (max-width: 959px) { @content; }
+	}
+	@if $device == t-m {
+		@media only screen and (max-width: 959px) { @content; }
+	}
+	@else if $device == m {
+		@media only screen and (max-width: 767px)  { @content; }
+	}
+}
+

@@ -1,0 +1,25 @@
+ $("#slider").owlCarousel({
+        
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem:true
+});
+
+$("ul.navbar-nav > li > a").on('click', function(event){
+    event.preventDefault();
+    
+    $('ul.navbar-nav li').removeClass('active');
+    $(this).parent().addClass('active');
+    $("html, body").animate({scrollTop:$(this.hash).offset().top-50}, 1200);
+});
+
+$(window).scroll(function(){
+    var scrollAtual = $(this).scrollTop();
+    
+    if (scrollAtual > 200){
+        $('#navegacao').addClass('navegacao-fixa'); 
+    }
+    else {
+        $('#navegacao').removeClass('navegacao-fixa'); 
+    }  
+})
